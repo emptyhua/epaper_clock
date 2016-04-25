@@ -1,2 +1,2 @@
-# epaper_clock
-make a clock with raspberry pi and e-paper screen
+成品机:
+![the clock](https://raw.github.com/emptyhua/epaper_clock/master/the_clock_0.jpg)
