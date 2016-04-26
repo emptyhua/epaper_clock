@@ -1,15 +1,14 @@
 #!/usr/bin/env python
-#coding: utf-8
+# coding: utf-8
 
-'''
+"""
 部分函数取自https://github.com/yy502/ePaperDisplay.git
 由于不太习惯原作的行文风格，故重造一遍。。。
-'''
+"""
 
-import sys, os
-import serial
 import struct
-import time
+
+import serial
 
 FONT_SIZE_32 = 0x01
 FONT_SIZE_48 = 0x02
@@ -48,34 +47,36 @@ COLOR_GRAY          = 0x02
 COLOR_WHITE         = 0x03
 
 
-class Screen:
+class Screen(object):
     def __init__(self, tty):
         self.tty = tty
+        self.socket = None
 
-    def _build_frame(self, cmd, args=None):
+    @staticmethod
+    def _build_frame(cmd, args=None):
         length = 9
-        if args is not None:
+        if args:
             length += len(args)
         frame = '\xA5' + struct.pack('>h', length) + chr(cmd)
-        if args is not None:
-            frame +=  args
+        if args:
+            frame += args
         frame += '\xCC\x33\xC3\x3C'
         parity = 0x00
         for i in xrange(0, len(frame)):
-            parity = parity ^ ord(frame[i])
+            parity ^= ord(frame[i])
         frame += chr(parity)
         return frame
 
     def _send(self, frame):
         self.socket.write(frame)
-        rt = self.socket.read(10)
+        return self.socket.read(10)
 
     def connect(self):
-        self.socket = serial.Serial(port=self.tty, \
-        baudrate=115200, \
-        stopbits=serial.STOPBITS_ONE, \
-        bytesize=serial.EIGHTBITS, \
-        timeout=0.03)
+        self.socket = serial.Serial(port=self.tty,
+                                    baudrate=115200,
+                                    stopbits=serial.STOPBITS_ONE,
+                                    bytesize=serial.EIGHTBITS,
+                                    timeout=0.03)
 
     def disconnect(self):
         self.socket.close()
@@ -108,7 +109,8 @@ class Screen:
     def set_ch_font_size(self, size):
         self._send(self._build_frame(CMD_SET_CH_FONT, chr(size)))
 
-    def _get_real_font_size(self, font_size):
+    @staticmethod
+    def _get_real_font_size(font_size):
         return [0, 32, 48, 64][font_size]
 
     def get_text_width(self, txt, size=FONT_SIZE_32):
@@ -159,17 +161,15 @@ class Screen:
                 width += 27
             elif c in "W":
                 width += 28
-            else: # non-ascii or Chinese character
+            else:  # non-ascii or Chinese character
                 width += 32
         return int(width * (size / 32.0))
-
 
     def text(self, x0, y0, text):
         args = struct.pack('>hh', x0, y0)
         if isinstance(text, str):
             text = text.decode('utf-8')
-        text = text.encode('gb2312')
-        args = args + text + '\x00'
+        args += text.encode('gb2312') + '\x00'
         self._send(self._build_frame(CMD_DRAW_STRING, args))
 
     def wrap_text(self, x0, y0, limit, text, font_size=FONT_SIZE_32, line_space=10):
@@ -177,7 +177,7 @@ class Screen:
         line_height = self._get_real_font_size(font_size)
         line = ''
         width = 0
-        cy  = y0
+        cy = y0
 
         if not isinstance(text, unicode):
             text = text.decode('utf-8')
@@ -191,7 +191,7 @@ class Screen:
                 line = ''
                 width = 0
 
-        if len(line):
+        if line:
             self.text(x0, cy, line)
 
     def load_pic(self):
@@ -203,5 +203,3 @@ class Screen:
         args = struct.pack('>hh', x0, y0)
         args = args + image.encode('ascii') + '\x00'
         self._send(self._build_frame(CMD_DRAW_BITMAP, args))
-
-
