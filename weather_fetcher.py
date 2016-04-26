@@ -10,7 +10,7 @@ import time
 import requests
 from lxml import etree
 
-output_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '/weather.json')
+output_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'weather.json')
 
 def fail_exit(msg):
     with open(output_file, 'w') as out_file:
