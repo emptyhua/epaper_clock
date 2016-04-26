@@ -117,5 +117,5 @@ for key in keys_require:
         fail_exit('can not get key %s' % key)
 
 result['update'] = int(time.time())
-with open(output_file) as out_file:
+with open(output_file, 'w') as out_file:
     json.dump(result, out_file)
