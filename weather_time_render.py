@@ -192,7 +192,7 @@ screen.text(weather2_x + 50, weather2_y + 12, '明日预告')
 
 fmt = u'{tomorrow_weather},{tomorrow_temp_hig}~{tomorrow_temp_low}℃,{tomorrow_wind}'
 msg = fmt.format(**wdata)
-if wdata.get('tomorrow_aq') is None:
+if wdata.get('tomorrow_aq'):
     msg += ', AQI {tomorrow_aq}{tomorrow_aq_desc}'.format(**wdata)
 screen.wrap_text(weather2_x + 8, weather2_y + 48 + 20, box_width, msg)
 
