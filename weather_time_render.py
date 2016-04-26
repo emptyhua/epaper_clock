@@ -111,7 +111,7 @@ try:
     home_data_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'home_air.json')
     hdata = json.load(file(home_data_file, 'r'))
     if int(time.time()) - hdata['update'] < 120:
-        tmp0 = '{temp}℃ {humidity} %'.format(**hdata)
+        tmp0 = u'{temp}℃ {humidity} %'.format(**hdata)
         tmp0 = tmp0.replace('1', '1 ')
         screen.text(weather_text_x + 64, weather_y + margin_top +
                     weather_line1_height +
@@ -144,7 +144,7 @@ screen.text(weather_text_x - 20, weather_y + margin_top +
             weather_line1_height +
             weather_line_spacing +
             weather_line2_height +
-            weather_line_spacing + 10, '室外')
+            weather_line_spacing + 10, u'室外')
 
 screen.text(weather_text_x - 20, weather_y + margin_top +
             weather_line1_height +
@@ -152,7 +152,7 @@ screen.text(weather_text_x - 20, weather_y + margin_top +
             weather_line2_height +
             weather_line_spacing +
             weather_line3_height +
-            weather_line_spacing + 10, '室内')
+            weather_line_spacing + 10, u'室内')
 
 screen.text(weather_line5_x - 64 * 2 - 20, weather_y + margin_top +
             weather_line1_height +
@@ -188,12 +188,12 @@ screen.line(weather2_x, weather2_y + box_height, screen_width - 20, weather2_y +
 
 screen.set_ch_font_size(FONT_SIZE_32)
 screen.set_en_font_size(FONT_SIZE_32)
-screen.text(weather2_x + 50, weather2_y + 12, '明日预告')
+screen.text(weather2_x + 50, weather2_y + 12, u'明日预告')
 
 fmt = u'{tomorrow_weather},{tomorrow_temp_hig}~{tomorrow_temp_low}℃,{tomorrow_wind}'
 msg = fmt.format(**wdata)
 if wdata.get('tomorrow_aq'):
-    msg += ', AQI {tomorrow_aq}{tomorrow_aq_desc}'.format(**wdata)
+    msg += u', AQI {tomorrow_aq}{tomorrow_aq_desc}'.format(**wdata)
 screen.wrap_text(weather2_x + 8, weather2_y + 48 + 20, box_width, msg)
 
 screen.update()
