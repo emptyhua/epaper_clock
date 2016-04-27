@@ -34,7 +34,7 @@ if time_string[0] == '0':
     temp_x += 40
 
 for c in time_string:
-    bmp_name = 'NUM{}.BMP'.format('' if c == ':' else c)
+    bmp_name = 'NUM{}.BMP'.format('S' if c == ':' else c)
     screen.bitmap(clock_x + temp_x, clock_y, bmp_name)
     temp_x += 70 if c == ':' else 100
 
