@@ -51,7 +51,7 @@ dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 r
 ```
 dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 kgdboc=serial0,115200 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
 ```
-把`console=***`和`kgdboc=***`这两个参数删掉
+把`console=ttyAMA0`,`console=serial0`,`kgdboc=***`这两个参数删掉
 变成下面这样
 ```
 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
