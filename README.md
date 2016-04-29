@@ -67,10 +67,10 @@ sudo python ./setup.py install
 ```
 ####准备串口屏幕的图片和字体资源
 这个串口屏是通过TF卡加载字体和图片资源的（好坑爹的设计。。），所以你需要准备一张TF卡，格式化为 FAT32 文件系统，分配单元大小选择
-4096 字节，然后把tf_card文件夹中的文件全部copy到TF卡根目录，并把TF卡查到屏幕的卡槽里
+4096 字节，然后把tf_card文件夹中的文件全部copy到TF卡根目录，并把TF卡查到屏幕的卡槽里。串口屏的更多资料见：http://www.waveshare.net/w/upload/archive/4/4a/20150408073133!4.3inch-e-Paper-UserManual-CN.pdf
 
 ####终于可以运行了～～
-在运行之前先编辑一下weather_time_render.py，找到下面2行，把注释取消掉，运行时会把屏幕TF卡中的文件加载到屏幕自带的NandFlash中，之后就不需要插TF卡了～～ 串口屏的更多资料见：http://www.waveshare.net/w/upload/archive/4/4a/20150408073133!4.3inch-e-Paper-UserManual-CN.pdf
+在运行之前先编辑一下weather_time_render.py，找到下面2行，把注释取消掉，运行时会把屏幕TF卡中的文件加载到屏幕自带的NandFlash中，之后就不需要插TF卡了～～ 
 ```
 # screen.load_pic()
 # time.sleep(5)
