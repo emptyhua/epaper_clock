@@ -42,7 +42,7 @@ dtoverlay=pi3-miniuart-bt
 sudo systemctl disable hciuart
 ```
 
-####释放串口
+#### 释放串口
 编辑 /boot/cmdline.txt，默认是下面这样
 ```
 dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
